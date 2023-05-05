@@ -6,10 +6,6 @@ const categoryController = {
         try{
             const newCategory = new Category(req.body);
             const saveCategory = await newCategory.save();
-            if(req.body.product){
-                const product = Product.findById(req.body.product);
-                await product.updateOne({$push: {products: saveCategory._id}});
-            }
             res.status(200).json(saveCategory);
         }catch(err){
             res.status(500).json(err);
@@ -18,8 +14,21 @@ const categoryController = {
      //getall
      getAllcategory: async(req, res) => {
         try{
-            const category = await Category.find().populate('products');
+            const category = await Category.find();
             res.status(200).json(category);
+        }catch(err){
+            res.status(500),json(err);
+        }
+    },
+    //
+    getCategory: async(req, res) => {
+        try{
+            const products = await Product.find({
+                "$or":[
+                    {category: {$regex: new RegExp(req.params.key, 'i')}}
+                ]
+            });
+            res.status(200).json(products);
         }catch(err){
             res.status(500),json(err);
         }

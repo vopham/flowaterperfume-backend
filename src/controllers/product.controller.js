@@ -1,4 +1,5 @@
-const {Product, Customer} = require('../models/models');
+const {Product} = require('../models/models');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const productController = {
     //add
@@ -6,10 +7,6 @@ const productController = {
         try{
             const newProduct = new Product(req.body);
             const saveProduct = await newProduct.save();
-            if(req.body.category){
-                const category = Caterogy.findById(req.body.category);
-                await category.updateOne({$push: {category: saveProduct._id}});
-            }
             res.status(200).json(saveProduct);
         }catch(err){
             res.status(500).json(err);
@@ -24,6 +21,15 @@ const productController = {
             res.status(500),json(err);
         }
     },
+    // getbysex
+    getBysex: async(req, res) => {
+        try{
+            const product = await Product.find({sex: req.params.key})
+            res.status(200).json(product);
+        }catch(err){
+            res.status(500).json(err);
+        }
+    },
     //findonebyid
     findOne: async(req, res) => {
         try{
@@ -33,10 +39,24 @@ const productController = {
             res.status(500).json(err);
         }
     },
+    //findName
+    findName: async(req, res) => {
+        try{
+            const product = await Product.find({
+                "$or":[
+                    {name: {$regex: new RegExp(req.params.key, 'i')}}
+                ]
+            });
+            res.status(200).json(product);
+        }catch(err){
+            res.status(500),json(err);
+        }
+    },
     //updateproduct
     updateProduct: async(req, res) => {
         try{
-            const product = await Product.findById(req.params.id);
+            const id = req.params.id;
+            const product = await Product.findById(id.trim().toString());
             await product.updateOne({$set: req.body});
             res.status(200).json('Updated successfully!');
         }catch(err){
