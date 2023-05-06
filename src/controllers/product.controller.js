@@ -66,8 +66,8 @@ const productController = {
     //deleteproduct
     deleteProduct: async(req, res) => {
         try{
-            await Customer.updateMany({products: req.params.id}, {$pull: {products: req.params.id}});
-            await Product.findByIdAndDelete(req.params.id);
+            const id = req.params.id
+            const product = await Product.findByIdAndDelete(id.trim().toString());
             res.status(200).json('Deleted successfully!');
         }catch(err){
             res.status(500).json(err);

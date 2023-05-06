@@ -53,6 +53,10 @@ const cartSchema = new Schema({
 
 const billSchema = new Schema({
   cus_id: String,
+  status:{
+    type: Boolean,
+    default:  false
+  },
   totalprice:{
     type: Number,
     default: 0

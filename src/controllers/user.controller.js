@@ -21,6 +21,7 @@ const userController = {
                     address: req.body.address,
                     email: req.body.email,
                     pass: hashed,
+                    admin: req.body.admin
                 });
                  
                 // if(req.body.product){
@@ -137,7 +138,6 @@ const userController = {
             res.status(500).json(err);
         }
     },
-    //deleteUser
     deleteUser: async(req, res) => {
         try{
             const user = await User.findByIdAndDelete(req.params.id);
@@ -147,7 +147,6 @@ const userController = {
             res.status(500).json(err);
         }
     },
-
 };
 
 module.exports = userController;

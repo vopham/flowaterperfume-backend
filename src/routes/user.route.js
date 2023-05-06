@@ -10,7 +10,7 @@ router.post('/login', userController.loginUser);
 router.post('/logout', middlewareController.verifyToken, userController.logoutUser);
 //get all
 router.get('/getall',middlewareController.verifyToken, middlewareController.isAdmin,  userController.getAllUser);
-
+//admin
 //find one by id
 router.get('/:id', userController.findOne);
 
@@ -18,6 +18,6 @@ router.get('/:id', userController.findOne);
 router.put('/:id', userController.updateUser);
 
 //deleteproduct
-router.delete('/:id', userController.deleteUser);
+router.post('/:id', userController.deleteUser);
 
 module.exports = router;
