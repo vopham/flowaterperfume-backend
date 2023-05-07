@@ -37,7 +37,7 @@ const cartController = {
     },
     getcart: async(req, res) => {
         try{
-     
+               const isCart = await Cart.find({cus_id: req.params.id})
                var a = await Cart.aggregate([
                     { "$addFields": { "productid": { "$toObjectId": "$product_id" }}},
                     {

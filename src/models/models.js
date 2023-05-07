@@ -53,11 +53,20 @@ const cartSchema = new Schema({
 
 const billSchema = new Schema({
   cus_id: String,
+  name_order: String,
+  phone_order: String,
+  address_order: String,
+  total_quantity: Number,
+  bill_items:[{
+    name_product: String,
+    price: Number,
+    quantity: Number
+  }],
   status:{
     type: Boolean,
     default:  false
   },
-  totalprice:{
+  total_price:{
     type: Number,
     default: 0
   }
