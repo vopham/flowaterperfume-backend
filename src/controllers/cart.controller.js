@@ -35,6 +35,14 @@ const cartController = {
             res.status(500).json(err);
         }
     },
+    removeallcart: async(req, res) => {
+        try{
+            const isCart = await Cart.deleteMany();
+            res.status(200).json('Xóa thành công');
+        }catch(err){
+            res.status(500).json(err);
+        }
+    },
     getcart: async(req, res) => {
         try{
                const isCart = await Cart.find({cus_id: req.params.id})

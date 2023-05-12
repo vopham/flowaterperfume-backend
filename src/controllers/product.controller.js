@@ -44,7 +44,8 @@ const productController = {
         try{
             const product = await Product.find({
                 "$or":[
-                    {name: {$regex: new RegExp(req.params.key, 'i')}}
+                    {
+                        name: {$regex: new RegExp(req.params.key, 'i')}}
                 ]
             });
             res.status(200).json(product);

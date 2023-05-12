@@ -10,4 +10,6 @@ router.put('/:id',billController.updateBill);
 
 router.post('/:id', billController.deleteBill);
 
+router.get('/getonebill',billController.getonebill);
+
 module.exports = router;

@@ -32,10 +32,17 @@ const billController = {
             res.status(500).json(err);
         }
     },
-    
     getallbill: async(req, res) => {
         try{
             const bill = await Bill.find()
+            res.status(200).json(bill);
+        }catch(err){
+            res.status(500).json(err);
+        }
+    },
+    getonebill: async(req, res) => {
+        try{
+            const bill = await Bill.findOne({cus_id: req.body.cus_id})
             res.status(200).json(bill);
         }catch(err){
             res.status(500).json(err);
